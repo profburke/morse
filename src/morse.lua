@@ -8,19 +8,21 @@ local defaultDash = function() io.write "-" end
 local defaultBlank = function() io.write " " end
 local defaultCleanup = function() io.write "\n" end
 
-local signalHandlers = {
+
+local eventHandlers = {
    dot = defaultDot,
    dash = defaultDash,
    blank = defaultBlank,
    cleanup = defaultCleanup,
 }
 
-local dot = function() signalHandlers.dot() end
-local dash = function() signalHandlers.dash() end
-local blank = function() signalHandlers.blank() end
+
+local dot = function() eventHandlers.dot() end
+local dash = function() eventHandlers.dash() end
+local blank = function() eventHandlers.blank() end
 local interword = function() for i = 1,7 do blank() end end
-local interletter =  function() for i = 1,3 do blank() end end
-local intersymbol =  function() blank() end
+local interletter = function() for i = 1,3 do blank() end end
+local intersymbol = function() blank() end
 
 
 
@@ -52,24 +54,24 @@ local letters = {
    x = {dash, dot, dot, dash},
    y = {dash, dot, dash, dash},
    z = {dash, dash, dot, dot},
-   -- 0 = {dash, dash, dash, dash, dash},
-   -- 1 = {dot, dash, dash, dash, dash},
-   -- 2 = {dot, dot, dash, dash, dash},
-   -- 3 = {dot, dot, dot, dash, dash},
-   -- 4 = {dot, dot, dot, dot, dash},
-   -- 5 = {dot, dot, dot, dot, dot},
-   -- 6 = {dash, dot, dot, dot, dot},
-   -- 7 = {dash, dash, dot, dot, dot},
-   -- 8 = {dash, dash, dash, dot, dot},
-   -- 9 = {dash, dash, dash, dash, dot},
+   ['0'] = {dash, dash, dash, dash, dash},
+   ['1'] = {dot, dash, dash, dash, dash},
+   ['2'] = {dot, dot, dash, dash, dash},
+   ['3'] = {dot, dot, dot, dash, dash},
+   ['4'] = {dot, dot, dot, dot, dash},
+   ['5'] = {dot, dot, dot, dot, dot},
+   ['6'] = {dash, dot, dot, dot, dot},
+   ['7'] = {dash, dash, dot, dot, dot},
+   ['8'] = {dash, dash, dash, dot, dot},
+   ['9'] = {dash, dash, dash, dash, dot},
 }
 
 
 
 
 local prepare = function(msg)
-   msg = string.gsub(msg, '[^%w%s]', '')
-   msg = string.lower(msg)
+   msg = msg:gsub('[^%w%s]', '')
+   msg = msg:lower()
    return msg
 end
 
@@ -80,8 +82,7 @@ local transmit = function(c)
    local symbols = letters[c]
    if not symbols then return end
 
-   local nSymbols = #symbols
-   for i = 1,nSymbols do
+   for i = 1, #symbols do
       if i ~= 1 then
          intersymbol()
       end
@@ -107,8 +108,6 @@ end
 
 
 
-_M.dotLength = defaultDotLength
-
 
 _M.send = function(msg) 
    msg = prepare(msg)
@@ -122,14 +121,16 @@ _M.send = function(msg)
       end
       spell(word)
    end
-   signalHandlers.cleanup()
+   eventHandlers.cleanup()
 end
 
 
-_M.setDotHandler = function(f) signalHandlers.dot = f end
-_M.setDashHandler = function(f) signalHandlers.dash = f end
-_M.setBlankHandler = function(f) signalHandlers.blank = f end
-_M.setCleanupHandler = function(f) signalHandlers.cleanup = f end
+
+
+_M.setDotHandler = function(f) eventHandlers.dot = f end
+_M.setDashHandler = function(f) eventHandlers.dash = f end
+_M.setBlankHandler = function(f) eventHandlers.blank = f end
+_M.setCleanupHandler = function(f) eventHandlers.cleanup = f end
 
 
 
