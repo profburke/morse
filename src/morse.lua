@@ -1,3 +1,21 @@
+--- morse, a Lua module for translating text to Morse code.
+--
+-- This module provides a text to Morse code function. The one
+-- interesting bit is that the implemetation is designed to allow you
+-- to easily override the way the symbols are generated so that you could, for example,
+-- have it beep, rather than print dots and dashes.
+--
+-- @usage 
+-- morse = require 'morse'
+-- morse.send 'a patient waiter is no loser'
+--
+-- @module morse
+-- @author Matthew M. Burke
+-- @copyright 2014
+-- @license MIT (see LICENSE file)
+--
+
+
 local _M = {}
 
 
@@ -8,15 +26,10 @@ local defaultDash = function() io.write "-" end
 local defaultBlank = function() io.write " " end
 local defaultCleanup = function() io.write "\n" end
 
-
-local eventHandlers = {
-   dot = defaultDot,
-   dash = defaultDash,
-   blank = defaultBlank,
-   cleanup = defaultCleanup,
-}
+local eventHandlers
 
 
+-- See README.md for a discussion of standard timing of Morse Code.
 local dot = function() eventHandlers.dot() end
 local dash = function() eventHandlers.dash() end
 local blank = function() eventHandlers.blank() end
@@ -64,15 +77,28 @@ local letters = {
    ['7'] = {dash, dash, dot, dot, dot},
    ['8'] = {dash, dash, dash, dot, dot},
    ['9'] = {dash, dash, dash, dash, dot},
+   ['.'] = {dot, dash, dot, dash, dot, dash},
+   [','] = {dash, dash, dot, dot, dash, dash},
+   ['?'] = {dot, dot, dash, dash, dot, dot},
+   ["'"] = {dot, dash, dash, dash, dash, dot},
+   ['!'] = {dash, dot, dash, dot, dash, dash},
+   ['/'] = {dash, dot, dot, dash, dot},
+   ['('] = {dash, dot, dash, dash, dot},
+   [')'] = {dash, dot, dash, dash, dot, dash},
+   [':'] = {dash, dash, dash, dot, dot, dot},
+   [';'] = {dash, dot, dash, dot, dash, dot},
+   ['='] = {dash, dot, dot, dot, dash},
+   ['+'] = {dot, dash, dot, dash, dot},
+   ['-'] = {dash, dot, dot, dot, dot, dash},
+   ['"'] = {dot, dash, dot, dot, dash, dot},
+   ['@'] = {dot, dash, dash, dot, dash, dot},
 }
 
 
 
 
 local prepare = function(msg)
-   msg = msg:gsub('[^%w%s]', '')
-   msg = msg:lower()
-   return msg
+   return msg:gsub('[^%w%s%.]', ''):lower()
 end
 
 
@@ -82,10 +108,9 @@ local transmit = function(c)
    local symbols = letters[c]
    if not symbols then return end
 
-   for i = 1, #symbols do
-      if i ~= 1 then
-         intersymbol()
-      end
+   symbols[1]()
+   for i = 2, #symbols do
+      intersymbol()
       symbols[i]()
    end
 end
@@ -96,7 +121,7 @@ end
 local spell = function(word)
    local firstCharacter = true
 
-   for c in word:gmatch('%w') do
+   for c in word:gmatch('[%w%.]') do
       if not firstCharacter then
          interletter()
       else
@@ -108,12 +133,19 @@ end
 
 
 
-
+--- Translates message to Morse code.
+--
+-- This message is called for its side effects which very depending
+-- on the implemenation of the signal handlers. The default implementation
+-- prints dots and dashes to standard out.
+--
+-- @tparam string msg the text to translate
+--
 _M.send = function(msg) 
    msg = prepare(msg)
    local firstWord = true
 
-   for word in msg:gmatch('%w+') do
+   for word in msg:gmatch('[%w%.]+') do
       if not firstWord then
          interword()
       else
@@ -127,10 +159,38 @@ end
 
 
 
-_M.setDotHandler = function(f) eventHandlers.dot = f end
-_M.setDashHandler = function(f) eventHandlers.dash = f end
-_M.setBlankHandler = function(f) eventHandlers.blank = f end
-_M.setCleanupHandler = function(f) eventHandlers.cleanup = f end
+--- Sets the given function as the dot generator.
+-- @tparam function f the new dot generator
+_M.setDotGenerator = function(f) eventHandlers.dot = f end
+
+
+--- Sets the given function as the dash generator.
+-- @tparam function f the new dash generator
+_M.setDashGenerator = function(f) eventHandlers.dash = f end
+
+
+--- Sets the given function as the blank generator.
+-- @tparam function f the new blank generator
+_M.setBlankGenerator = function(f) eventHandlers.blank = f end
+
+
+--- Sets the given function as the cleanup function.
+-- @tparam function f the new cleanup function
+_M.setCleanupFunction = function(f) eventHandlers.cleanup = f end
+
+
+--- Restores the dot, dash and blank generators and the cleanup function
+-- to their default implementations.
+_M.restoreDefaults = function()
+   eventHandlers = {
+      dot = defaultDot,
+      dash = defaultDash,
+      blank = defaultBlank,
+      cleanup = defaultCleanup,
+   }
+end
+
+_M.restoreDefaults()
 
 
 
