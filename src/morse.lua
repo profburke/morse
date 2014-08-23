@@ -97,13 +97,6 @@ local letters = {
 
 
 
-local prepare = function(msg)
-   return msg:gsub('[^%w%s%.]', ''):lower()
-end
-
-
-
-
 local transmit = function(c)
    local symbols = letters[c]
    if not symbols then return end
@@ -121,7 +114,7 @@ end
 local spell = function(word)
    local firstCharacter = true
 
-   for c in word:gmatch('[%w%.]') do
+   for c in word:gmatch('.') do
       if not firstCharacter then
          interletter()
       else
@@ -142,10 +135,10 @@ end
 -- @tparam string msg the text to translate
 --
 _M.send = function(msg) 
-   msg = prepare(msg)
+   msg = msg:lower()
    local firstWord = true
 
-   for word in msg:gmatch('[%w%.]+') do
+   for word in msg:gmatch('%S+') do
       if not firstWord then
          interword()
       else
