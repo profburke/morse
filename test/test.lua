@@ -8,7 +8,7 @@ package.path = package.path .. LUA_PATH_SEP .. '../src/?.lua'
 
 
 
-local CORRECT_OUTPUT = [[-   . . . .   .       - - . -   . . -   . .   - . - .   - . -       - . . .   . - .   - - -   . - -   - .       . . - .   - - -   - . . -       . - - -   . . -   - -   . - - .   . . .       - - -   . . . -   .   . - .       -   . . . .   .       . - . .   . -   - - . .   - . - -       - . .   - - -   - - .
+local CORRECT_OUTPUT = [[-   . . . .   .       - - . -   . . -   . .   - . - .   - . -       - . . .   . - .   - - -   . - -   - .       . . - .   - - -   - . . -       . - - -   . . -   - -   . - - .   . . .       - - -   . . . -   .   . - .       -   . . . .   .       . - . .   . -   - - . .   - . - -       - . .   - - -   - - .   . - . - . -
 ]]
 local morse = require 'morse'
 
@@ -26,6 +26,6 @@ local morsefile = io.open 'morse.out'
 local morsetext = morsefile:read '*a'
 
 
-assert(morsetext == CORRECT_OUTPUT)
+assert(morsetext == CORRECT_OUTPUT, string.format('Test Failed\nExpected <%s>\n\nReceived <%s>', CORRECT_OUTPUT, morsetext))
 
 print "Success"

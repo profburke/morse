@@ -7,6 +7,10 @@ doc: config.ld src/morse.lua README.md CHANGELOG.md
 	ldoc .
 
 
+test: src/morse.lua test/test.lua
+	cd test; lua test.lua
+
+
 rockspec: src/morse.lua
 	@echo "To be implemented; it would be nice if we could read the version from"
 	@echo "the Lua source and use it in the rockspec"
@@ -14,6 +18,7 @@ rockspec: src/morse.lua
 
 clean:
 	rm -rf *~ src/*~ 
+
 
 realclean: clean
 	rm -rf doc *.rockspec
