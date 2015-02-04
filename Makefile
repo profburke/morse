@@ -17,7 +17,7 @@ rockspec: src/morse.lua
 
 
 clean:
-	rm -rf *~ src/*~ 
+	rm -rf *~ src/*~ test/*.out test/*~ examples/*~
 
 
 realclean: clean

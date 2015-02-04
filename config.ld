@@ -1,3 +1,4 @@
+-- ldoc configuration
 project = 'Morse'
 title = 'Morse Library Documentation'
 description = 'A simple text-to-Morse Code converter.'

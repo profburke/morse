@@ -128,7 +128,7 @@ end
 
 --- Translates message to Morse code.
 --
--- This message is called for its side effects which very depending
+-- This message is called for its side effects which vary depending
 -- on the implemenation of the signal handlers. The default implementation
 -- prints dots and dashes to standard out.
 --
