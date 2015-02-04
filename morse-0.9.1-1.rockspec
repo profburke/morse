@@ -2,7 +2,7 @@ package = 'morse'
 version = '0.9.1-1'
 source = {
    url = 'git://github.com/profburke/morse',
-   tag = 'v0.0.1'
+   tag = 'v0.9.1'
 }
 description = {
    summary = 'Convert text to Morse code',
