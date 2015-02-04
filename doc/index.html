@@ -1,0 +1,247 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Morse Library Documentation</title>
+    <link rel="stylesheet" href="ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Morse</h1>
+
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><strong>morse</strong></li>
+</ul>
+<h2>Topics</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="topics/README.md.html">README</a></li>
+  <li><a href="topics/CHANGELOG.md.html">CHANGELOG</a></li>
+</ul>
+<h2>Examples</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="examples/morse-to-file.lua.html">morse-to-file.lua</a></li>
+  <li><a href="examples/smiley-morse.lua.html">smiley-morse.lua</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>morse</code></h1>
+<p>morse, a Lua module for translating text to Morse code.</p>
+<p> This module provides a text to Morse code function. The one
+ interesting bit is that the implemetation is designed to allow you
+ to easily override the way the symbols are generated so that you could, for example,
+ have it beep, rather than print dots and dashes.</p>
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+ morse = require &apos;morse&apos;
+ morse.send &apos;a patient waiter is no loser&apos;
+</pre>
+    </ul>
+    <h3>Info:</h3>
+    <ul>
+        <li><strong>Copyright</strong>: 2014</li>
+        <li><strong>License</strong>: MIT (see LICENSE file)</li>
+        <li><strong>Author</strong>: Matthew M. Burke</li>
+    </ul>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#send">send (msg)</a></td>
+	<td class="summary">Translates message to Morse code.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#setDotGenerator">setDotGenerator (f)</a></td>
+	<td class="summary">Sets the given function as the dot generator.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#setDashGenerator">setDashGenerator (f)</a></td>
+	<td class="summary">Sets the given function as the dash generator.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#setBlankGenerator">setBlankGenerator (f)</a></td>
+	<td class="summary">Sets the given function as the blank generator.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#setCleanupFunction">setCleanupFunction (f)</a></td>
+	<td class="summary">Sets the given function as the cleanup function.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#restoreDefaults">restoreDefaults ()</a></td>
+	<td class="summary">Restores the dot, dash and blank generators and the cleanup function
+ to their default implementations.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "send"></a>
+    <strong>send (msg)</strong>
+    </dt>
+    <dd>
+    Translates message to Morse code. </p>
+
+<p> This message is called for its side effects which vary depending
+ on the implemenation of the signal handlers. The default implementation
+ prints dots and dashes to standard out.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">msg</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+         the text to translate
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "setDotGenerator"></a>
+    <strong>setDotGenerator (f)</strong>
+    </dt>
+    <dd>
+    Sets the given function as the dot generator.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">f</span>
+            <span class="types"><span class="type">function</span></span>
+         the new dot generator
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "setDashGenerator"></a>
+    <strong>setDashGenerator (f)</strong>
+    </dt>
+    <dd>
+    Sets the given function as the dash generator.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">f</span>
+            <span class="types"><span class="type">function</span></span>
+         the new dash generator
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "setBlankGenerator"></a>
+    <strong>setBlankGenerator (f)</strong>
+    </dt>
+    <dd>
+    Sets the given function as the blank generator.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">f</span>
+            <span class="types"><span class="type">function</span></span>
+         the new blank generator
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "setCleanupFunction"></a>
+    <strong>setCleanupFunction (f)</strong>
+    </dt>
+    <dd>
+    Sets the given function as the cleanup function.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">f</span>
+            <span class="types"><span class="type">function</span></span>
+         the new cleanup function
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "restoreDefaults"></a>
+    <strong>restoreDefaults ()</strong>
+    </dt>
+    <dd>
+    Restores the dot, dash and blank generators and the cleanup function
+ to their default implementations.
+
+
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.3</a></i>
+<i style="float:right;">Last updated 2015-02-03 20:57:03 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

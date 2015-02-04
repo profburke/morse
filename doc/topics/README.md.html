@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Morse Library Documentation</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Morse</h1>
+
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Usage">Usage </a></li>
+<li><a href="#Requirements_and_Installation">Requirements and Installation </a></li>
+<li><a href="#Conventional_Timing_of_Morse_Code">Conventional Timing of Morse Code </a></li>
+<li><a href="#Documentation_and_Contact_Information">Documentation and Contact Information </a></li>
+<li><a href="#License">License </a></li>
+</ul>
+
+
+<h2>Topics</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><strong>README</strong></li>
+  <li><a href="../topics/CHANGELOG.md.html">CHANGELOG</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../index.html">morse</a></li>
+</ul>
+<h2>Examples</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../examples/morse-to-file.lua.html">morse-to-file.lua</a></li>
+  <li><a href="../examples/smiley-morse.lua.html">smiley-morse.lua</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+
+
+<h1>Morse</h1>
+
+<p>Morse lets you turn text into Morse code. It provides one main function, <a href="../index.html#send">send</a>, for encoding text
+and several auxiliary functions that change how the code is generated.</p>
+
+<p>I wrote the library not because I was interested in Morse code, but because I wanted something to exercise
+<a href="http://github.com/profburke/FILL-THIS-IN">luablink</a>. If you happen to have a <a href="http://thingm.com/blink-1.html">blink(1)</a>, you should take
+a look at <a href="http://github.com/profburke/FILL-THIS-IN">luablink</a>.</p>
+
+
+<p><a name="Usage"></a></p>
+<h2>Usage</h2>
+
+<p>If you're not changing the signalling mechanism, there's not much to it:</p>
+
+
+<pre>
+morse = <span class="global">require</span> <span class="string">'morse'</span>
+morse.send <span class="string">'a patient waiter is no loser'</span>
+</pre>
+
+<p>Take a look at <a href="http://github.com/profburke/morse/examples/smiley-morse.lua">Smiley Morse</a> or this <a href="https://gist.github.com/profburke/1aa10b0fd6a2422e1843">gist</a> for details on changing the signalling mechanism.</p>
+
+
+<p>This project uses semantic versioning. See <a href="http://semver.org">semver.org</a> for more information.</p>
+
+
+<p><a name="Requirements_and_Installation"></a></p>
+<h2>Requirements and Installation</h2>
+
+<p>The library was developed and tested using <a href="http://lua.org">Lua</a> 5.2.3. However it should run on other versions of Lua with little or no modification.</p>
+
+<p>If you have downloaded the github repository, you can install the library by copying the files in the <code>src</code> subdirectory to
+your Lua library (<code>/usr/local/share/lua/5.2</code> or similar). Alternatively, you can install it via <a href="http://luarocks.org/">luarocks</a></p>
+
+
+<pre>
+luarocks install morse
+</pre>
+
+<p><a name="Conventional_Timing_of_Morse_Code"></a></p>
+<h2>Conventional Timing of Morse Code</h2>
+
+<p><code>Morse</code> is based on the conventional timing of Morse Code (<em>or, rather, my understanding of it</em>). There are five durations that are important:</p>
+
+<ol>
+    <li>a short mark, <em>dot</em>, is one time unit long</li>
+    <li>a long mark, <em>dash</em>, is three time units long</li>
+    <li>between dots and dashes, but with a character, there should be one time unit</li>
+    <li>between letters there should be three time units</li>
+    <li>between words there should be seven time units</li>
+</ol>
+
+<p><code>Morse</code> enforces this timing by means of the blank generator function. Whatever this function does should be considered the equivalent of 'one time unit'. (For example,
+the default implementation prints a space.) The <a href="../index.html#send">send</a> function calls the blank generator seven times between words, three times between letters, etc.</p>
+
+
+
+<p><a name="Documentation_and_Contact_Information"></a></p>
+<h2>Documentation and Contact Information</h2>
+
+<p>More documentation (than this dirt simple library requires) can be found in the <code>doc</code> subdirectory.</p>
+
+<p>The best way to contact me regarding this library is to post an issue at the <a href="https://github.com/profburke/morse/issues">github repository</a>.</p>
+
+
+<p><a name="License"></a></p>
+<h2>License</h2>
+
+<p>Morse is free software distributed under the terms of the MIT license. It may be used for any purpose, including commercial purposes, at absolutely no cost without having to ask. The only requirement is that if you do use Morse, then you should give me credit by including the appropriate copyright notice somewhere in your product or its documentation. For details, see <code>LICENSE</code>.</p>
+
+
+
+
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.3</a></i>
+<i style="float:right;">Last updated 2015-02-03 20:57:03 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
