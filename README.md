@@ -17,7 +17,7 @@ If you're not changing the signalling mechanism, there's not much to it:
     morse.send 'a patient waiter is no loser'
 
 
-Take a look at [Smiley Morse](http://github.com/profburke/morse/examples/smiley-morse.lua) or this [gist](https://gist.github.com/profburke/1aa10b0fd6a2422e1843) for details on changing the signalling mechanism.
+Take a look at [Smiley Morse](https://github.com/profburke/morse/blob/master/examples/smiley-morse.lua) or this [gist](https://gist.github.com/profburke/1aa10b0fd6a2422e1843) for details on changing the signalling mechanism.
 
 
 This project uses semantic versioning. See <a href="http://semver.org">semver.org</a> for more information.
